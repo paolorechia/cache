@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# executa uma simulacao e gera arquivo com o trafego para o proximo nivel
+
+# set -x
+
+gzip -dc trace.gz | \
+  dinero -b32 -S4 -u0 -d32k -i32k -ww -An -Odin.out -o4 -a1 | \
+  gzip -9 > tr_L2.gz

@@ -1,0 +1,165 @@
+.TH SCHED
+\"
+\" sched manual page version 1.0 released 7/4/92.
+\"
+.UC 4
+.SH NAME
+sched \- Address-trace Scheduler, version I
+.SH SYNOPSIS
+.B sched
+-p'trace_gen' -m num_events -q quantum [-c] [-r] [-f] [-v]
+.SH DESCRIPTION
+.I sched
+generates an output trace which is an interleaving of blocks of memory
+references for trace-driven cache/TLB/memory simulators.  A
+.I trace
+is a finite sequence of memory references usually obtained by the
+interpretive execution of a program or set of programs.  A
+.I block
+is a segment of a full trace.  From one to eight input traces can be
+combined to generate an output trace that resembles a multiprogramming
+workload.  The scheduling policy is round-robin over the (circular)
+list given by the order in which the
+.I -p
+clauses appear in the command line.
+.PP
+Trace input is read by
+.I sched
+in 
+.I din
+format (described later).
+.I sched
+parameters, e.g. number of events, are set
+with command line options (also described later).
+.PP
+.I sched
+reads access records in
+.I din
+format from the output of the unix commands given by the
+.I trace_gen
+clauses.  A
+.I din 
+record is pair
+.I label
+.IR address .
+Each line of the trace file must contain one 
+.I din
+record.
+The rest of the line is ignored so that comments can be included
+in the trace file.
+.PP
+The
+.I label
+gives the access type of a reference.
+.br
+
+    0  read data.
+    1  write data.
+    2  instruction fetch.
+    3  escape record (treated as unknown access type).
+    4  escape record (causes cache/tlb flush).
+.PP
+The
+.I address
+is a hexadecimal byte-address between 0 and ffffffff inclusively (without
+any prefix such as 0x).
+.PP
+.I sched
+parameters are set by command line options.
+At least one and at most eight
+.I trace_gen
+clauses must be specified.
+Other parameters are optional.
+The suffixes
+.IR K ,
+.I M
+and
+.I G
+multiply numbers by 1024, 1024^2 and 1024^3, respectively.
+.PP
+The following command line options are available:
+.TP
+.BI \-p " trace_gen"
+.I trace_gen
+must be a unix command that generates a trace in the format described
+above.  Minimum of one and maximum of eight -p clauses.  For example:
+.br
+    sched -p'zcat trace1.Z' -p'cat trace2'
+.br
+would generate an interleaving of blocks of
+.I quantum
+accesses from trace1, followed by
+.I quantum
+accesses from trace2, then back to trace1 and so on.
+Each
+.I trace_gen
+must be enclosed in single quotes (to protect it from
+the shell) and must not exceed 80 characters.
+.TP
+.BI \-m " num_events"
+sets the number of accesses that will be generated i.e. the size of the
+output trace.  Defaults to 500x10^6 (i.e. -m500000000).
+.TP
+.BI \-q " quantum"
+sets the number of accesses to be transferred from one of the input
+traces to the output trace, before selecting another source of input
+(rescheduling the execution of the processes).
+Defaults to 10^5 (i.e. -q100000).
+.TP
+.BI \-c " flag_context_switches"
+if this option is present, a
+.I context_switch
+record is inserted in the output trace to signal a rescheduling.
+The record inserted conforms to the
+.I din
+format (accepted by dinero and tlb) and is
+.br
+    5 pid
+.br
+where the address field is the new process-id number (in the range 0-7).
+Defaults to not-flagging context switches.
+.TP
+.BI \-r " resched_on_EOT"
+if present, when a trace runs out, re-open the pipe but take input from
+the next trace in the scheduling list.  If not present, the pipe is
+re-open and input taken from the beginning of the same trace/process.
+.TP
+.BI \-f " flush_on_CS"
+if this option is present, a
+.I flush_record
+is added to the output stream on a context switch.  If option
+.I flag_context_switches
+is also used, the
+.I flush_record
+is issued immediately after the
+.I context_switch
+record.
+.TP
+.BI \-v " variable_quantum"
+if this option is present, the
+.I quantum
+changes dynamically according to
+.br
+(0.75 * quantum) + (rand() % (0.5 * quantum))).
+.SH FILES
+.ta 1.5i
+.I doc.h
+contains additional programmer documentation.
+.SH "SEE ALSO"
+dinero(1), dinero(1), tlb(1).
+.SH BUGS
+Not all combination of options have been thoroughly tested.
+.br
+The number of accesses in a given block can be at times (quantum + 1)
+rather than just quantum.
+.br
+If the pipe associated to a command specified by an -p clause is
+successfully open but the command at the other end of the pipe misbehaves,
+sched may or may not give a warning and/or die miserably.
+.SH AUTHOR
+.nf
+Roberto Hexsel,
+Dept. of Computer Science,
+Edinburgh University
+.fi
+

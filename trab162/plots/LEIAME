@@ -1,0 +1,33 @@
+Uso do script blocos.gp:
+
+blocs.gp -j -t "taxa de faltas X tam blocos" blocs.dat
+
+produz o arquivo taxa_de_faltas_X_tam_blocos.jpg com o gráfico de "taxa de
+faltas X tamanho dos bolcos", com os dados contidos no arquivo blocos.dat.
+
+
+
+Em blocos.dat:
+
+a primeira coluna é a ordenada (tamanho do bloco) e cada uma das colunas
+seguintes corresponde a uma capacidade da cache:
+2a col -> 1K, 3a col -> 4k, etc
+
+# indicam comentários e a linha é ignorada
+
+linhas em branco separam conjuntos de dados (data sets).
+
+
+Para informações sobre o gnuplot, o melhor é usar a ajuda no próprio
+gnuplot:  entre no programa, dizendo "gnuplot" e então "help" ou 
+"help tópico" para ajuda sobre algum tópico em especial.
+
+
+--x--
+
+blocos.gp produz saída nos formatos postscript (-p), xfig (-f), LaTeX (-l)
+e jpeg (-j).
+
+Veja o comando "plot" que está comentado para exemplo de uso com mais de um
+arquivo de dados.
+

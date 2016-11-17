@@ -1,0 +1,369 @@
+.TH dinero
+\"
+\" dinero man page version 1.0 released 7/4/92.
+\"
+.UC 4
+.SH NAME
+dinero \- cache simulator, version X (dcs.ed)
+.SH SYNOPSIS
+.B dinero
+-b block_size -u unified_cache_size -i instruction_cache_size -d data_cache_size [ other_options ]
+.SH DESCRIPTION
+.I dinero
+is a trace-driven cache simulator that supports sub-block placement.
+Simulation results are determined by the input trace and the cache
+parameters.
+A trace is a finite sequence of memory references
+usually obtained by the interpretive execution of a program or set of programs.
+Trace input is read by the simulator
+in 
+.I din
+format (described later).
+Cache parameters, e.g. block size and associativity, are set with
+command line options (also described later).
+.I dinero
+uses the priority stack
+method of memory hierarchy simulation to increase flexibility
+and improve simulator performance in highly associative caches.
+One can simulate either a unified cache (mixed, data and instructions
+cached together) or separate instruction and data caches.
+This version of
+.I dinero
+does not permit the simultaneous simulation of multiple alternative caches.
+.PP
+.I dinero
+differs from most other cache simulators because it supports
+sub-block placement (also known as sector placement) in which address tags
+are still associated with cache blocks but data is transferred
+to and from the cache in smaller sub-blocks.
+This organization is especially useful for
+on-chip microprocessor caches which have to load data 
+on cache misses over a limited number of pins.
+In traditional cache design, this constraint leads to small blocks.
+Unfortunately, a cache with small block devotes much more on-chip
+RAM to address tags than does one with large blocks.
+Sub-block placement allows a cache to have 
+small sub-blocks for fast data transfer 
+and large blocks to associate with address tags for efficient use of
+on-chip RAM.
+.PP
+Trace-driven simulation is frequently used to 
+evaluating memory hierarchy performance.
+These simulations are repeatable and allow
+cache design parameters to be varied
+so that effects can be isolated.
+They are cheaper than hardware monitoring and do not
+require access to or the existence of the machine being studied.
+Simulation results can be obtained in many situations where analytic model
+solutions are intractable without questionable simplifying assumptions.
+Further, there does not currently exist any generally accepted model
+for program behavior, let alone one that is suitable for cache
+evaluation; workloads in trace-driven simulation
+are represented by samples of real workloads and contain complex
+embedded correlations that synthetic workloads often lack.
+Lastly, a trace-driven simulation is guaranteed to be
+representative of at least one program in execution.
+.PP
+.I dinero
+reads trace input in
+.I din
+format from
+.IR stdin .
+A
+.I din 
+record is two-tuple
+.I label
+.IR address .
+Each line of the trace file must contain one 
+.I din
+record.
+The rest of the line is ignored so that comments can be included
+in the trace file.
+.PP
+The
+.I label
+gives the access type of a reference.
+.br
+
+    0  read data.
+    1  write data.
+    2  instruction fetch.
+    3  escape record (treated as unknown access type).
+    4  escape record (causes cache flush).
+    5  context switch (address field is the new pid number).
+.PP
+The
+.I address
+is a hexadecimal byte-address between 0 and ffffffff inclusively (without
+any prefix such as 0x).
+.PP
+The process identification number is part of the tags stored in the cache.
+When presented with an input record of types 0, 1, or 2,
+.I dinero
+compares both the address and the current pid to the tag(s) stored in
+the appropriate block(s).  Process Identification Numbers must be in the
+range 0-7.  If the write policy is
+.I copy_back,
+the cache
+is flushed when a context switch record is read from the input trace.
+.PP
+Cache parameters are set by command line options.
+Parameters
+.I block_size
+and either
+.I unified_cache_size
+or both
+.I data_cache_size
+and
+.I instruction_cache_size
+must be specified.
+Other parameters are optional.
+The suffixes
+.IR K ,
+.I M
+and
+.I G
+multiply numbers by 1024, 1024^2 and 1024^3, respectively.
+.PP
+The following command line options are available:
+.TP
+.BI \-b " block_size"
+sets the cache block size in bytes.
+Must be explicitly set (e.g. -b16).
+.TP
+.BI \-u " unified_cache_size"
+sets the unified cache size in bytes (e.g., -u16K).
+A unified cache, also called a mixed cache,
+caches both data and instructions.
+If
+.I unified_cache_size 
+is positive, both
+.I instruction_cache_size 
+and
+.I data_cache_size 
+must be zero.
+If zero, implying separate instruction and data caches
+will be simulated, both
+.I instruction_cache_size 
+and
+.I data_cache_size 
+must be set to positive values.
+Defaults to 0.
+.TP
+.BI \-i " instruction_cache_size"
+sets the instruction cache size in bytes (e.g. -i16384).
+Defaults to 0 indicating a unified cache simulation.
+If positive, the
+.I data_cache_size 
+must be positive as well.
+.TP
+.BI \-d " data_cache_size"
+sets the data cache size in bytes (e.g. -d1M).
+Defaults to 0 indicating a unified cache simulation.
+If positive, the
+.I instruction_cache_size 
+must be positive as well.
+.TP
+.BI \-S " subblock_size"
+sets the cache sub-block size in bytes.
+Defaults to 0 indicating that sub-block placement is not being used (i.e. -S0).
+.TP
+.BI \-a " associativity"
+sets the cache associativity.  A direct-mapped cache has associativity 1.
+A two-way set-associative cache has associativity 2.  A fully associative
+cache has associativity
+.IR data_cache_size/block_size .
+Defaults to direct-mapped placement (i.e. -a1).
+.TP
+.BI \-r " replacement_policy"
+sets the cache replacement policy.
+Valid replacement policies are
+.I l
+(LRU), 
+.I f
+(FIFO),
+and 
+.I r
+(RANDOM).
+Defaults to LRU (i.e. -rl).
+.TP
+.BI \-f " fetch_policy"
+sets the cache fetch policy.
+Demand-fetch (\fId\fR), which
+fetches blocks that are needed to service a cache reference,
+is the most common fetch policy.
+All other fetch policies are methods of prefetching.
+Prefetching is never done after writes.
+The prefetch target is determined by the 
+.B \-p
+option and whether sub-block placement is enabled.
+.br
+
+    d  demand-fetch which never prefetches.
+    a  always-prefetch which prefetches after every demand reference.
+    m  miss-prefetch which prefetches after every demand miss.
+    t  tagged-prefetch which prefetches after the first demand miss to a (sub-)block.
+The next two prefetch options work only with sub-block placement.
+    l  load-forward-prefetch (sub-block placement only) works like prefetch-always within a block, but it will not attempt to prefetch sub-blocks in other blocks.
+    S  sub-block-prefetch (sub-block placement only) works like prefetch-always within a block except when references near the end of a block.  At this point sub-block-prefetches references will wrap around within the current block.
+
+Defaults to demand-fetch (i.e. -fd).
+.TP
+.BI \-p " prefetch_distance"
+sets the prefetch distance in sub-blocks if sub-block placement is enabled
+or in blocks if it is not.
+A prefetch_distance of 1 means that the next sequential (sub-)block is 
+the potential target of a prefetch.
+Defaults to 1 (i.e. -p1).
+.TP
+.BI \-P " abort_prefetch_percent"
+sets the percentage of prefetches that are aborted.
+This can be used to examine the effects of data references 
+blocking prefetch references from reaching a shared cache.
+Defaults to no prefetches aborted (i.e. -P0).
+.TP
+.BI \-w " write_policy"
+selects one of two the cache write policies.
+Write-through (\fIw\fR)
+updates main memory on all writes.
+Copy-back (\fIc\fR)
+updates main memory only when a dirty block is replaced or the cache
+is flushed.
+Defaults to copy-back (i.e. -wc)
+.TP
+.BI \-A " write_allocation_policy"
+selects whether a (sub-)block is loaded on a write reference.
+Write-allocate (\fIw\fR)
+causes (sub-)blocks to be loaded on all references that miss.
+Non-write-allocate (\fIn\fR)
+causes (sub-)blocks to be loaded only on non-write references that miss.
+Defaults to write-allocate (i.e. -Aw).
+.TP
+.BI \-D " debug_flag"
+used by implementor to debug simulator.
+A debug_flag of
+.I 0 
+disables debugging;
+.I 1
+prints the priority stacks after every reference;  and
+.I 2
+prints the priority stacks and performance metrics after every reference.
+Debugging information may be useful to the user to 
+understand the precise meaning  of all cache parameter settings.
+Defaults to no-debug (i.e. -D0).
+.TP
+.BI \-o " output_style"
+sets the output style.
+.br
+Terse-output (\fI0\fR)
+prints results only at the end of the simulation run.
+.br
+Verbose-output (\fI1\fR)
+prints results at half-million reference increments and
+at the end of the simulation run.
+.br
+Bus-output (\fI2\fR)
+prints an output record for every memory bus transfer.
+.br
+Bus_and_snoop-output (\fI3\fR)
+prints an output record for every memory bus transfer and clean sub-block
+that is replaced.
+.br
+Bus-transparent-output (\fI4\fR)
+prints an output record for every memory bus transfer in the same format
+as the input format.  When a (sub-)block is loaded or flushed, all the
+bus accesses for that block are generated.  If an access occurs to a word in
+the middle of a block, the accesses to load/replace the full block are
+generated from the address that missed to the end of the block,
+then wrapping around to its beginning.  All accesses are to word-aligned
+locations.  If this output format is used, an
+output file should also be supplied (i.e. -Ooutfile).
+.br
+Defaults to terse-output (i.e. -o0).
+For Bus-output (-o2 and -o3), each bus record is a six-tuple:
+.br
+
+.I BUS2 
+are four literal characters to start bus record
+.br
+.I access
+is the access type (
+.I r
+for a bus-read,
+.I w
+for a bus-write,
+.I p
+for a bus-prefetch,
+.I s
+for snoop activity (output style 3 only).
+.br
+.I size
+is the transfer size in bytes
+.br
+.I address
+is a hexadecimal byte-address between 0 and ffffffff inclusively
+.br
+.I reference_count
+is the number of demand references since the last bus transfer
+.br
+.I instruction_count
+is the number of demand instruction fetches since the last bus transfer
+.TP
+.BI \-Z " skip_count"
+sets the number of trace references to be skipped before beginning
+cache simulation.
+Defaults to none (i.e. -Z0).
+.TP
+.BI \-z " maximum_count"
+sets the maximum number of trace references to be processed 
+after skipping the trace references specified by 
+.I skip_count .
+Note, references generated by the simulator not read from the trace
+(e.g. prefetch references) are not included in this count.
+Defaults to 200 million (i.e. -z200000000).
+.TP
+.BI \-Q " flush_count"
+sets the number of references between cache flushes. 
+Can be used to crudely simulate multiprogramming.
+Defaults to no flushing (i.e. -Q0).
+.TP
+.BI \-O " outfile"
+the statistics are written to
+.I outfile
+rather than to sdtout.  outfile can be at most 80 characteres long.
+This option MUST be used whenever bus output is being piped into
+another program (i.e. options -o2, -o3, -o4), to stop statistics from
+appearing in the output stream.
+Bus activity (-o2, -o3, -o4) is always sent to stdout.
+.SH FILES
+.ta 1.5i
+.I doc.h
+contains additional programmer documentation.
+.SH "SEE ALSO"
+Mark D. Hill and Alan Jay Smith,
+.IR "Experimental Evaluation of On-Chip Microprocessor Cache Memories" ,
+.IR "Proc. Eleventh International Symposium on Computer Architecture" ,
+June 1984, Ann Arbor, MI.
+.br
+Alan Jay Smith,
+.IR "Cache Memories" ,
+.IR "Computing Surveys" ,
+14-3, September 1982.
+.br
+sched(1), tlb(1).
+.SH BUGS
+Not all combination of options have been thoroughly tested.
+.SH AUTHOR
+.nf
+Mark D. Hill                   markhill@cs.wisc.edu
+Computer Sciences Dept.
+1210 West Dayton St.
+Univ. of Wisconsin
+Madison, WI 53706
+
+Modified, on Feb/Mar 92, by
+Roberto Hexsel,                rh@dcs.ed.ac.uk
+Dept of Computer Science,
+Edinburgh University
+.fi
+

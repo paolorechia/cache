@@ -1,0 +1,29 @@
+#/bin/bash
+
+# set -x
+
+# for TRC in frag jpeg_enc rtr zip_dec zip_enc ; do
+for TRC in all ; do
+  echo -e -n "# $TRC\n"
+  for csz in 4 8 16 ; do # 1 2 4 8 16 32 64 128 256; do 
+    # associativity
+    for as in 1 2  ; do # 1 2 4 8 ; do \
+      # cache sub-block size
+      for bl in 64 128 ; do # 4 8 16 32 64 128 ; do \
+        # write policy [c=copy-back | w=writethrough]
+        for wp in c ; do 
+          # write-miss policy [w=allocate | n=no-allocate]
+            if [ ${wp} = "w" ] ; then ap=n; WW=1 ; else ap=w; WW=2 ; fi
+            if test -s ${TRC}_${csz}kA${as}B${bl}W${wp}A${ap} ; then
+              cat ${TRC}_${csz}kA${as}B${bl}W${wp}A${ap} |\
+                awk -v x=${csz} \
+                    -v conf="${TRC}_${csz}kA${as}B${bl}W${wp}A${ap}" \
+                    '/din_dmm/{ printf "%-3d %.4f\t# %s\n",x,$4,conf ; }'
+            fi
+        done
+      done
+    done 
+  done
+  echo -e -n "\n\n"
+done
+

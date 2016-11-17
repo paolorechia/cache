@@ -1,0 +1,231 @@
+.TH TLB
+\"
+\" tlb man page version 1.0 released 10/4/92.
+\"
+.UC 4
+.SH NAME
+tlb \- Translation Lookaside Buffer simulator, version I
+.SH SYNOPSIS
+.B tlb
+-p page_size -s size -a associativity -Ooutfilename [ other_options ]
+.SH DESCRIPTION
+.I tlb
+is a trace-driven TLB simulator.
+Simulation results are determined by the input trace and the TLB parameters.
+A trace is a finite sequence of memory references
+usually obtained by the interpretive execution of a program or set of programs.
+Trace input is read by the simulator
+in 
+.I din
+format (described later).
+TLB parameters, e.g. size and associativity, are set with
+command line options (also described later).
+.I tlb
+uses the priority stack
+method of memory hierarchy (of the Dinero cache simulator) simulation to
+increase flexibility
+and improve simulator performance in highly associative TLBs.
+This version of
+.I tlb
+does not permit the simultaneous simulation of multiple alternative TLBs.
+.PP
+Trace-driven simulation is frequently used to evaluate memory hierarchy
+performance.  These simulations are repeatable and allow design parameters
+to be varied so that effects can be isolated.
+They are cheaper than hardware monitoring and do not
+require access to or the existence of the machine being studied.
+Simulation results can be obtained in many situations where analytic model
+solutions are intractable without questionable simplifying assumptions.
+Workloads in trace-driven simulation
+are represented by samples of real workloads and contain complex
+embedded correlations that synthetic workloads often lack.
+Lastly, a trace-driven simulation is guaranteed to be
+representative of at least one program in execution.
+.PP
+.I tlb
+reads trace input in
+.I din
+format from
+.IR stdin .
+A
+.I din 
+record is two-tuple
+.I label
+.IR address .
+Each line of the trace file must contain one 
+.I din
+record.
+The rest of the line is ignored so that comments can be included
+in the trace file.
+.PP
+The
+.I label
+gives the access type of a reference.
+.br
+
+    0  read data.
+    1  write data.
+    2  instruction fetch.
+    3  escape record (treated as unknown access type).
+    4  escape record (causes tlb flush).
+    5  context switch (address field is the new pid number).
+.PP
+The
+.I address
+is a hexadecimal byte-address between 0 and ffffffff inclusively (without
+any prefix such as 0x).
+The process identification number is part of the tags stored in the
+associative memory.
+When presented with an input record of types 0, 1, or 2,
+.I tlb
+compares both the address and the current pid to the tag(s) stored in
+the appropriate block(s).  Process Identification Numbers must be in the
+range 0-7.
+.PP
+The page table is constructed on the fly by the tlb simulator.  The first
+page that faults is allocated main memory frame 0; all subsequent faults
+result in allocation of consecutivelly numbered frames.  No frame
+replacement algorithm is implemented.  The bus traffic caused by
+tlb activities is not generated either.
+.PP
+TLB parameters are set by command line options.
+Parameter
+.I page_size
+must be specified.
+Other parameters are optional.
+The suffixes
+.IR K ,
+.I M
+and
+.I G
+multiply numbers by 1024, 1024^2 and 1024^3, respectively.
+.PP
+The following command line options are available:
+.TP
+.BI \-p " page_size"
+sets page size in bytes.   Both the virtual and real memory page/frame
+sizes are specified by this option.  Must be explicitly set (e.g. -p8K).
+.TP
+.BI \-s " size"
+sets the number of entries, or mappings, in the TLB(e.g. -s64).
+Defaults to 1 (i.e. -s1).
+.TP
+.BI \-a " associativity"
+sets the tlb associativity.  
+Defaults to one-way associativity (i.e. -a1).
+.TP
+.BI \-r " replacement_policy"
+sets the tlb replacement policy.
+Valid replacement policies are
+.I l
+(LRU), 
+.I f
+(FIFO),
+and 
+.I r
+(RANDOM).
+Defaults to LRU (i.e. -rl).
+.TP
+.BI \-D " debug_flag"
+used by implementor to debug simulator.
+.br
+A debug_flag of
+.I 0 
+disables debugging;
+.br
+.I 1
+prints the (decoded) address reference, the contents of the page-table (as it
+would appear in main memory) plus the priority stacks after every reference;
+.br
+.I 2
+in addition to the above, prints the performance metrics after every
+reference.
+.br
+Debugging information may be useful to the user to 
+understand the precise meaning of all tlb parameter settings.
+Defaults to no-debug (i.e. -D0).
+.TP
+.BI \-o " output_style"
+sets the output style.
+.br
+Terse-output (\fI0\fR)
+prints results only at the end of the simulation run.
+.br
+Verbose-output (\fI1\fR)
+prints results every half-million references and
+at the end of the simulation run.
+.br
+Bus-output (\fI2\fR)
+prints an output record for every memory bus transfer.
+.br
+Bus-transparent-output (\fI3\fR)
+prints an output record for every memory bus transfer in the same format
+as the input format.  The label field is unchanged but the address field is
+modified to reflect the corresponding virtual-to-real mapping.  This
+option (\fI-o3\fR) should be used only when
+.I tlb
+is an intermediary stage of a pipeline, where its output is being
+piped into another program.  In this case, the option
+.I -Ooutfile
+MUST be used to stop the statistics from appearing at the output stream.
+The option (\fI-o4\fR) is equivalent do (\fI-o4\fR) and is provided for
+compatibility with 
+.I dinero.
+Defaults to Terse-output (i.e. -o0).
+For Bus-output (-o2), each bus record is a triple:
+.br
+
+.I BUS2 
+are four literal characters to start bus record.
+.br
+.I access
+is the access type (
+.I r
+for a bus-read,
+.I w
+for a bus-write).
+.br
+.I address
+is an hexadecimal byte-address between 0 and ffffffff inclusively.
+.TP
+.BI \-Z " skip_count"
+sets the number of trace references to be skipped before beginning
+simulation.  Defaults to none (i.e. -Z0).
+.TP
+.BI \-z " maximum_count"
+sets the maximum number of trace references to be processed 
+after skipping the trace references specified by 
+.I skip_count .
+Defaults to 200 million (i.e. -z200000000).
+.TP
+.BI \-Q " flush_count"
+sets the number of references between TLB flushes. 
+Can be used to crudely simulate multiprogramming.
+Defaults to no flushing (i.e. -Q0).
+.TP
+.BI \-O " outfile"
+the statistics are written to
+.I outfile
+rather than to sdtout.  outfile can be at most 80 characteres long.
+Should always be used when piping
+.I tlb
+output into another program (with options -o2, -o3 or -o4).
+Bus activity (i.e. -o2, -o3, -o4) is always sent to stdout.
+.SH FILES
+.ta 1.5i
+.I doc.h
+contains additional programmer documentation.
+.SH "SEE ALSO"
+dinero(1), dinero(1), sched(1).
+.SH BUGS
+Not all combination of options have been thoroughly tested.
+.br
+The size of the page table (and physical memory) can/does grow arbitrarily
+large since no frame-replacement algorithm is implemented.
+.SH AUTHOR
+tlb was adapted by Roberto Hexsel, Dept. of Computer Science,
+Edinburgh University,
+from DineroIII Cache Simulator (v. 3.1, rel. 8/7/85),
+developed by Mark D. Hill, Computer Sciences Dept., Univ. of Wisconsin.
+.fi
+
