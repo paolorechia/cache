@@ -21,13 +21,13 @@ if [ -a $tabela_taxa_faltas ]; then
     rm $tabela_taxa_faltas
 fi
 
-echo Printing ${cap}k cache 
 
 dir=trab161/TRC
 
 for wp in c w; do
-    echo Write policy... ${wp} 
+    echo **Taxa de faltas \(Write policy... ${wp}\)
     for assoc in 1 2 4 8; do
+            echo *Associatividade $assoc
             for blk in 4 8 16 32 64 128; do
                 if [ ${wp} = "w" ] ; then ap=n; else ap=w ; fi
                 current=cast_d_${cap}kA${assoc}B${blk}W${wp}A${ap}
@@ -35,8 +35,7 @@ for wp in c w; do
                 fetches=$(cat $file | extractFetches) 
                 misses=$(cat $file | extractMisses)
                 taxa=$(taxaFaltas $fetches $misses)
-                echo $current
-                echo $taxa
+                echo Bl${blk}   -   0$taxa
             done
     done
 done
