@@ -9,12 +9,25 @@ function extractMisses {
     grep Misses | tr -s ' ' | cut -f3 | cut -f2 -d' '
 }
 
+function taxaFaltas {
+    taxa_faltas=$(echo "scale=8; $2/$1"  | bc -l)
+    echo $taxa_faltas
+}
+
+function imprimeInfo {
+    echo $1
+    echo Fetches = $2
+    echo Misses = $3
+    echo Taxa de faltas = $4
+}
 
 
 cap=$1
 tabela_taxa_faltas=tabela_taxa_faltas.txt
 
-rm $tabela_taxa_faltas
+if [ -a $tabela_taxa_faltas ]; then
+    rm $tabela_taxa_faltas
+fi
 
 echo Printing ${cap}k cache 
 
@@ -26,16 +39,12 @@ for wp in c w; do
             for blk in 4 8 16 32 64 128; do
                 if [ ${wp} = "w" ] ; then ap=n; else ap=w ; fi
                 current=cast_d_${cap}kA${assoc}B${blk}W${wp}A${ap}
-                echo $current 
                 file=$dir/$current
-                fetches=$(cat $file | extractFetches)
+                fetches=$(cat $file | extractFetches) 
                 misses=$(cat $file | extractMisses)
-                echo Fetches = $fetches
-                echo Misses = $misses
-                taxa_faltas=$(echo "scale=8; $misses/$fetches"  | bc -l)
-                echo Taxa de faltas = $taxa_faltas
-                echo $taxa_faltas
-
+                taxa=$(taxaFaltas $fetches $misses)
+                # imprimeInfo $current $fetches $misses $taxa
+                
             done
     done
 done
