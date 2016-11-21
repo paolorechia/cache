@@ -13,7 +13,7 @@ fetches=$(cat $1 | extractFetches)
 misses=$(cat $1 | extractMisses)
 echo Fetches = $fetches
 echo Misses = $misses
-taxa_faltas=$(echo "scale=2; $fetches/$misses"  | bc -l)
+taxa_faltas=$(echo "scale=8; $misses/$fetches"  | bc -l)
 echo $taxa_faltas
 
-echo Taxa de faltas = $taxa_faltas%
+echo Taxa de faltas = $taxa_faltas

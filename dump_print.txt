@@ -913,4 +913,3 @@ cast_d_4kA8B128WwAn
  ( / Demand Fetches)	   0.3188
  Specials -- context switches: 0   flushes: 0
 
-/home/bcc/pasr13/cache

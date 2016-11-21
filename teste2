@@ -1,0 +1,243 @@
+Printing 4k cache
+Write policy... c
+trab161/TRC/cast_d_4kA1B4WcAw
+Fetches = 37845156
+Misses = 102257
+.00270198
+Taxa de faltas = .00270198
+trab161/TRC/cast_d_4kA1B8WcAw
+Fetches = 37845156
+Misses = 138598
+.00366223
+Taxa de faltas = .00366223
+trab161/TRC/cast_d_4kA1B16WcAw
+Fetches = 37845156
+Misses = 140399
+.00370982
+Taxa de faltas = .00370982
+trab161/TRC/cast_d_4kA1B32WcAw
+Fetches = 37845156
+Misses = 643116
+.01699335
+Taxa de faltas = .01699335
+trab161/TRC/cast_d_4kA1B64WcAw
+Fetches = 37845156
+Misses = 876474
+.02315947
+Taxa de faltas = .02315947
+trab161/TRC/cast_d_4kA1B128WcAw
+Fetches = 37845156
+Misses = 1673581
+.04422180
+Taxa de faltas = .04422180
+trab161/TRC/cast_d_4kA2B4WcAw
+Fetches = 37845156
+Misses = 50661
+.00133863
+Taxa de faltas = .00133863
+trab161/TRC/cast_d_4kA2B8WcAw
+Fetches = 37845156
+Misses = 69934
+.00184789
+Taxa de faltas = .00184789
+trab161/TRC/cast_d_4kA2B16WcAw
+Fetches = 37845156
+Misses = 61393
+.00162221
+Taxa de faltas = .00162221
+trab161/TRC/cast_d_4kA2B32WcAw
+Fetches = 37845156
+Misses = 270852
+.00715684
+Taxa de faltas = .00715684
+trab161/TRC/cast_d_4kA2B64WcAw
+Fetches = 37845156
+Misses = 253197
+.00669034
+Taxa de faltas = .00669034
+trab161/TRC/cast_d_4kA2B128WcAw
+Fetches = 37845156
+Misses = 255753
+.00675787
+Taxa de faltas = .00675787
+trab161/TRC/cast_d_4kA4B4WcAw
+Fetches = 37845156
+Misses = 615
+.00001625
+Taxa de faltas = .00001625
+trab161/TRC/cast_d_4kA4B8WcAw
+Fetches = 37845156
+Misses = 343
+.00000906
+Taxa de faltas = .00000906
+trab161/TRC/cast_d_4kA4B16WcAw
+Fetches = 37845156
+Misses = 179
+.00000472
+Taxa de faltas = .00000472
+trab161/TRC/cast_d_4kA4B32WcAw
+Fetches = 37845156
+Misses = 92
+.00000243
+Taxa de faltas = .00000243
+trab161/TRC/cast_d_4kA4B64WcAw
+Fetches = 37845156
+Misses = 48
+.00000126
+Taxa de faltas = .00000126
+trab161/TRC/cast_d_4kA4B128WcAw
+Fetches = 37845156
+Misses = 26
+.00000068
+Taxa de faltas = .00000068
+trab161/TRC/cast_d_4kA8B4WcAw
+Fetches = 37845156
+Misses = 615
+.00001625
+Taxa de faltas = .00001625
+trab161/TRC/cast_d_4kA8B8WcAw
+Fetches = 37845156
+Misses = 343
+.00000906
+Taxa de faltas = .00000906
+trab161/TRC/cast_d_4kA8B16WcAw
+Fetches = 37845156
+Misses = 179
+.00000472
+Taxa de faltas = .00000472
+trab161/TRC/cast_d_4kA8B32WcAw
+Fetches = 37845156
+Misses = 92
+.00000243
+Taxa de faltas = .00000243
+trab161/TRC/cast_d_4kA8B64WcAw
+Fetches = 37845156
+Misses = 48
+.00000126
+Taxa de faltas = .00000126
+trab161/TRC/cast_d_4kA8B128WcAw
+Fetches = 37845156
+Misses = 26
+.00000068
+Taxa de faltas = .00000068
+Write policy... w
+trab161/TRC/cast_d_4kA1B4WwAn
+Fetches = 37845156
+Misses = 1194614
+.03156583
+Taxa de faltas = .03156583
+trab161/TRC/cast_d_4kA1B8WwAn
+Fetches = 37845156
+Misses = 1198346
+.03166444
+Taxa de faltas = .03166444
+trab161/TRC/cast_d_4kA1B16WwAn
+Fetches = 37845156
+Misses = 925015
+.02444209
+Taxa de faltas = .02444209
+trab161/TRC/cast_d_4kA1B32WwAn
+Fetches = 37845156
+Misses = 1227179
+.03242631
+Taxa de faltas = .03242631
+trab161/TRC/cast_d_4kA1B64WwAn
+Fetches = 37845156
+Misses = 2999239
+.07925027
+Taxa de faltas = .07925027
+trab161/TRC/cast_d_4kA1B128WwAn
+Fetches = 37845156
+Misses = 3029106
+.08003946
+Taxa de faltas = .08003946
+trab161/TRC/cast_d_4kA2B4WwAn
+Fetches = 37845156
+Misses = 1106607
+.02924038
+Taxa de faltas = .02924038
+trab161/TRC/cast_d_4kA2B8WwAn
+Fetches = 37845156
+Misses = 1138948
+.03009494
+Taxa de faltas = .03009494
+trab161/TRC/cast_d_4kA2B16WwAn
+Fetches = 37845156
+Misses = 886530
+.02342519
+Taxa de faltas = .02342519
+trab161/TRC/cast_d_4kA2B32WwAn
+Fetches = 37845156
+Misses = 784394
+.02072640
+Taxa de faltas = .02072640
+trab161/TRC/cast_d_4kA2B64WwAn
+Fetches = 37845156
+Misses = 735586
+.01943672
+Taxa de faltas = .01943672
+trab161/TRC/cast_d_4kA2B128WwAn
+Fetches = 37845156
+Misses = 738139
+.01950418
+Taxa de faltas = .01950418
+trab161/TRC/cast_d_4kA4B4WwAn
+Fetches = 37845156
+Misses = 1023719
+.02705019
+Taxa de faltas = .02705019
+trab161/TRC/cast_d_4kA4B8WwAn
+Fetches = 37845156
+Misses = 1023456
+.02704324
+Taxa de faltas = .02704324
+trab161/TRC/cast_d_4kA4B16WwAn
+Fetches = 37845156
+Misses = 711561
+.01880190
+Taxa de faltas = .01880190
+trab161/TRC/cast_d_4kA4B32WwAn
+Fetches = 37845156
+Misses = 482531
+.01275013
+Taxa de faltas = .01275013
+trab161/TRC/cast_d_4kA4B64WwAn
+Fetches = 37845156
+Misses = 482437
+.01274765
+Taxa de faltas = .01274765
+trab161/TRC/cast_d_4kA4B128WwAn
+Fetches = 37845156
+Misses = 482412
+.01274699
+Taxa de faltas = .01274699
+trab161/TRC/cast_d_4kA8B4WwAn
+Fetches = 37845156
+Misses = 1023719
+.02705019
+Taxa de faltas = .02705019
+trab161/TRC/cast_d_4kA8B8WwAn
+Fetches = 37845156
+Misses = 1023456
+.02704324
+Taxa de faltas = .02704324
+trab161/TRC/cast_d_4kA8B16WwAn
+Fetches = 37845156
+Misses = 711561
+.01880190
+Taxa de faltas = .01880190
+trab161/TRC/cast_d_4kA8B32WwAn
+Fetches = 37845156
+Misses = 482531
+.01275013
+Taxa de faltas = .01275013
+trab161/TRC/cast_d_4kA8B64WwAn
+Fetches = 37845156
+Misses = 482437
+.01274765
+Taxa de faltas = .01274765
+trab161/TRC/cast_d_4kA8B128WwAn
+Fetches = 37845156
+Misses = 482412
+.01274699
+Taxa de faltas = .01274699
