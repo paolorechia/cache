@@ -1,52 +1,74 @@
-Capacidade - 4k
-Area (estimada)
-Associatividade 1
+***Capacidade - 4k
+**Area (estimada)
+*Associatividade 1
 Bl 8    -   0.0022
 Bl16    -   0.0023
 Bl32    -   0.0023
 Bl64    -   0.0029
 Bl128   -   0.0038
-Associatividade 2
+*Associatividade 2
 Bl 8    -   0.0022
 Bl16    -   0.0023
 Bl32    -   0.0023
 Bl64    -   0.0039
 Bl128   -   0.0075
-Associatividade 4
+*Associatividade 4
 Bl 8    -   0.0022
 Bl16    -   0.0023
 Bl32    -   0.0039
 Bl64    -   0.0075
 Bl128   -   0.0131
-Associatividade 8
+*Associatividade 8
 Bl 8    -   0.0022
 Bl16    -   0.0039
 Bl32    -   0.0075
 Bl64    -   0.0131
 Bl128   -   0.0180
-Tempo de Acesso (cast_d)
-
-
-Energia por referencia (estimado)
-Associatividade 1
+**Tempo de Acesso (estimado) 
+*Associatividade 1
+Bl 8    -   0.062
+Bl16    -   0.062
+Bl32    -   0.058
+Bl64    -   0.058
+Bl128   -   0.061
+*Associatividade 2
+Bl 8    -   0.086
+Bl16    -   0.083
+Bl32    -   0.080
+Bl64    -   0.080
+Bl128   -   0.080
+*Associatividade 4
+Bl 8    -   0.085
+Bl16    -   0.083
+Bl32    -   0.083
+Bl64    -   0.082
+Bl128   -   0.089
+*Associatividade 8
+Bl 8    -   0.087
+Bl16    -   0.087
+Bl32    -   0.087
+Bl64    -   0.084
+Bl128   -   0.087
+**Energia por referencia (estimado)
+*Associatividade 1
 Bl 8    -   0.02
 Bl16    -   0.02
 Bl32    -   0.02
 Bl64    -   0.02
 Bl128   -   0.02
-Associatividade 2
+*Associatividade 2
 Bl 8    -   0.03
 Bl16    -   0.03
 Bl32    -   0.03
 Bl64    -   0.03
 Bl128   -   0.03
-Associatividade 4
+*Associatividade 4
 Bl 8    -   0.05
 Bl16    -   0.05
 Bl32    -   0.05
 Bl64    -   0.05
 Bl128   -   0.05
-Associatividade 8
+*Associatividade 8
 Bl 8    -   0.09
 Bl16    -   0.09
 Bl32    -   0.09
