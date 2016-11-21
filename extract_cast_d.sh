@@ -14,14 +14,6 @@ function taxaFaltas {
     echo $taxa_faltas
 }
 
-function imprimeInfo {
-    echo $1
-    echo Fetches = $2
-    echo Misses = $3
-    echo Taxa de faltas = $4
-}
-
-
 cap=$1
 tabela_taxa_faltas=tabela_taxa_faltas.txt
 
@@ -43,7 +35,8 @@ for wp in c w; do
                 fetches=$(cat $file | extractFetches) 
                 misses=$(cat $file | extractMisses)
                 taxa=$(taxaFaltas $fetches $misses)
-                # imprimeInfo $current $fetches $misses $taxa
+                echo $current
+                echo $taxa
                 
             done
     done
