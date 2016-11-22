@@ -22,3 +22,8 @@ Retira todos os headers, letras e simbolas nao numericos de um arquivo no format
 
 
 Ter Nov 22 14:21:40 BRST 2016
+
+# build\_dat.sh
+
+A partir de dois arquivos stripped, constroi uma tabela .dat. Posteriormente vou construir a tabela inteira.
+Ter Nov 22 15:14:57 BRST 2016
