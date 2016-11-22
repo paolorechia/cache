@@ -1,0 +1,25 @@
+**Energia por referencia (estimado)
+*Associatividade 1
+Bl 8    -   0.02
+Bl16    -   0.02
+Bl32    -   0.02
+Bl64    -   0.02
+Bl128   -   0.02
+*Associatividade 2
+Bl 8    -   0.03
+Bl16    -   0.03
+Bl32    -   0.03
+Bl64    -   0.03
+Bl128   -   0.03
+*Associatividade 4
+Bl 8    -   0.05
+Bl16    -   0.05
+Bl32    -   0.05
+Bl64    -   0.05
+Bl128   -   0.05
+*Associatividade 8
+Bl 8    -   0.09
+Bl16    -   0.09
+Bl32    -   0.09
+Bl64    -   0.09
+Bl128   -   0.09

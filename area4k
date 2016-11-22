@@ -1,0 +1,26 @@
+***Capacidade - 4k
+**Area (estimada)
+*Associatividade 1
+Bl 8    -   0.0022
+Bl16    -   0.0023
+Bl32    -   0.0023
+Bl64    -   0.0029
+Bl128   -   0.0038
+*Associatividade 2
+Bl 8    -   0.0022
+Bl16    -   0.0023
+Bl32    -   0.0023
+Bl64    -   0.0039
+Bl128   -   0.0075
+*Associatividade 4
+Bl 8    -   0.0022
+Bl16    -   0.0023
+Bl32    -   0.0039
+Bl64    -   0.0075
+Bl128   -   0.0131
+*Associatividade 8
+Bl 8    -   0.0022
+Bl16    -   0.0039
+Bl32    -   0.0075
+Bl64    -   0.0131
+Bl128   -   0.0180

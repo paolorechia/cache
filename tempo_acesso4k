@@ -1,0 +1,25 @@
+**Tempo de Acesso (estimado) 
+*Associatividade 1
+Bl 8    -   0.062
+Bl16    -   0.062
+Bl32    -   0.058
+Bl64    -   0.058
+Bl128   -   0.061
+*Associatividade 2
+Bl 8    -   0.086
+Bl16    -   0.083
+Bl32    -   0.080
+Bl64    -   0.080
+Bl128   -   0.080
+*Associatividade 4
+Bl 8    -   0.085
+Bl16    -   0.083
+Bl32    -   0.083
+Bl64    -   0.082
+Bl128   -   0.089
+*Associatividade 8
+Bl 8    -   0.087
+Bl16    -   0.087
+Bl32    -   0.087
+Bl64    -   0.084
+Bl128   -   0.087

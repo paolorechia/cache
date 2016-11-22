@@ -15,3 +15,10 @@ Seg Nov 21 18:40:14 BRST 2016
 Identico ao extract\_cast\_d.sh, exceto que a saida vem na forma de uma tabela (ainda pouco organizada)
 
 Seg Nov 21 18:48:46 BRST 2016
+
+# strip.sh
+
+Retira todos os headers, letras e simbolas nao numericos de um arquivo no formato tabela construido pelos scripts anteriores, com o objetivo de facilitar a construcao do grafico
+
+
+Ter Nov 22 14:21:40 BRST 2016
