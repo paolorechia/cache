@@ -8,7 +8,7 @@ set format x "%H:%M"
 set xlabel "associativity"
 
 set ylabel "time[ns]"
-set yrange [0.5:130.4]
+#set yrange [0.5:130.4]
 
 set title "Tempo De Acesso X"
 set key reverse Left outside
