@@ -3,24 +3,16 @@ reset
 set terminal png
 
 set xlabel "associativity"
-set logscale x 2 
+set logscale x 2
 
-set ylabel "cap"
+set ylabel "block size"
+set logscale y 2
+
 set zlabel "area"
 
-
-#set title "Area x Associatividade" 
-#set key reverse Left outside
+set pm3d
 set grid
 
-set pm3d
-
-#set style data linespoints
-
-splot "3D-assoc-bl.dat" \
-   u 1:2:3 with pm3d title "bl8", \
-"" u 1:2:3 with pm3d title "bl16", \
-"" u 1:2:4 with pm3d title "bl32", \
-"" u 1:2:5 with pm3d title "bl64", \
-"" u 1:2:6 with pm3d title "bl128", \
+splot "3D-target.dat" \
+   u 1:2:3 title "Associativity X Block Size X Area" 
 #
