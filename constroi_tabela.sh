@@ -19,7 +19,7 @@ cap=$1
 dir=trab161/TRC
 
 for wp in c w; do
-    saida=taxa_de_faltas_${wp}_4k
+    saida=taxa_de_faltas_${wp}_$1k
     if [ -a $saida ]; then
         rm $saida
     fi
