@@ -8,15 +8,16 @@ set logscale x 2
 set ylabel "cap"
 set zlabel "area"
 
-set pm3d
 
 #set title "Area x Associatividade" 
 #set key reverse Left outside
 set grid
 
+set pm3d
+
 #set style data linespoints
 
-splot "assoc-bl.dat" \
+splot "3D-assoc-bl.dat" \
    u 1:2:3 with pm3d title "bl8", \
 "" u 1:2:3 with pm3d title "bl16", \
 "" u 1:2:4 with pm3d title "bl32", \
