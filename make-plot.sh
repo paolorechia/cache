@@ -1,12 +1,11 @@
 #/bin/bash
 
-
-if [ $computer -eq "HOME" ]; then
-    visualizer=eom
-    else
+if [ -z $2 ]; then
     visualizer=eog
+else
+    visualizer=$2
 fi
-
+    
 if [ -n $arg1 ] && [ -a $arg1 ]; then
 	echo "./strip.sh $1 > stripped_$1"
 	./strip.sh $1 > stripped_$1 
