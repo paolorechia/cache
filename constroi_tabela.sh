@@ -35,7 +35,9 @@ for wp in c w; do
                 fetches=$(cat $file | extractFetches) 
                 misses=$(cat $file | extractMisses)
                 taxa=$(taxaFaltas $fetches $misses)
-                echo Bl${blk}     -      0$taxa
+                if [ $blk -ne 4 ]; then
+                    echo Bl${blk}     -      0$taxa
+                fi
             done
     done
 done
