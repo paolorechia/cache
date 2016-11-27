@@ -5,6 +5,19 @@ if [ -z $2 ]; then
 else
     visualizer=$2
 fi
+
+
+len=${#1}
+index=$(($index - 4))
+politica=${1:$index:1}
+index=$(($index + 2))
+if [ $politica = w ]; then
+    titulo="Cache ${1:$index:1}K (write-through)"
+else
+    titulo="Cache ${1:$index:1}K (copy-back)"
+fi    
+echo $politica
+echo $titulo
     
 if [ -n $arg1 ] && [ -a $arg1 ]; then
 	echo "./strip.sh $1 > stripped_$1"
@@ -23,7 +36,7 @@ set xlabel "associativity"
 set logscale x 2 
 DOC0
 printf "set ylabel \"$1\"\n" >> $saida
-printf "set title \"$1 x Associatividade\"\n" >> $saida
+printf "set title \"$titulo\"\n" >> $saida
 cat <<DOC1 >> $saida
 set key reverse Left outside
 set grid
