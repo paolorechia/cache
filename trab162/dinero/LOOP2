@@ -1,0 +1,25 @@
+#/bin/bash
+
+# set -x
+
+for TRC in cast_e jpeg_e rtr zip_d zip_e ; do
+  for csz in 1k 2k 4k 8k 16k 32k; do
+    # associativity
+    for as in 1 2 4 8 ; do \
+      # cache sub-block size
+      for bl in 8 16 32 64 128; do \
+        # write policy [c=copy-back | w=writethrough]
+        for wp in c w ; do 
+          # write-miss policy [w=allocate | n=no-allocate]
+          if [ ${wp} = "w" ] ; then ap=n; else ap=w ; fi
+	  if [ ! -s ${TRC}_${csz}A${as}B${bl}W${wp}A${ap} ] ; then
+            echo ${TRC}_${csz}A${as}B${bl}WP${wp}AP${ap}
+	    gzip -dc ../TRC/${TRC}.trc.gz | \
+	    dinero -a${as} -b${bl} -i8k -d${csz} -u0 -w${wp} -A${ap} \
+                           -O${TRC}_${csz}A${as}B${bl}W${wp}A${ap}
+          fi
+        done
+      done
+    done 
+  done
+done
