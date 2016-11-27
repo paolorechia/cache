@@ -36,7 +36,8 @@ set terminal png
 set xlabel "associativity"
 set logscale x 2 
 DOC0
-printf "set ylabel \"$1\"\n" >> $saida
+ylabel="Taxa de Faltas"
+printf "set ylabel \"$ylabel\"\n" >> $saida
 printf "set title \"$titulo\"\n" >> $saida
 cat <<DOC1 >> $saida
 set key reverse Left outside

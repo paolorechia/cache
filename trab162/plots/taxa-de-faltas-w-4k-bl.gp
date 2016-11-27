@@ -4,7 +4,7 @@ set terminal png
 
 set xlabel "associativity"
 set logscale x 2 
-set ylabel "taxa-de-faltas-w-4k"
+set ylabel "Taxa de Faltas"
 set title "Cache 4K (write-through)"
 set key reverse Left outside
 set grid
