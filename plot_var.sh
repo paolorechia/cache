@@ -24,6 +24,7 @@ if [ -n $arg1 ] && [ -a $arg1 ]; then
 	./strip.sh $1 > stripped_$1 
 	echo "./build_dat.sh $1 > trab162/plots/assoc-bl.dat"
 	./build_dat.sh $1 > trab162/plots/assoc-bl.dat
+	rm stripped_$1
     arquivo=$1-bl.gp
     saida=trab162/plots/$arquivo
 
