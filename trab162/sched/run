@@ -2,6 +2,8 @@
 
 # set -x
 
-sched -p'gzip -dc TRC/rtr.trc.gz' \
-      -p'gzip -dc TRC/zip_d.trc.gz' \
-      -p'gzip -dc TRC/zip_e.trc.gz' -q10 -m200 -c -f | more
+
+sched -p 'gzip -dc ~/cache/trab161/TRC/rtr.trc.gz' \
+      -p'gzip -dc ~/cache/trab161/TRC/zip_d.trc.gz' \
+      -p'gzip -dc ~/cache/trab161/TRC/zip_e.trc.gz' \
+      -p'gzip -dc ~/cache/trab161/TRC/jpeg_e.trc.gz' -q10 -m200 -c -f | more
