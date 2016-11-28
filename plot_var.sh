@@ -1,5 +1,7 @@
 #/bin/bash
 
+ROOT_DIR=~/cache
+
 if [ -z $2 ]; then
     visualizer=eog
 else
@@ -20,13 +22,13 @@ echo $politica
 echo $titulo
     
 if [ -n $arg1 ] && [ -a $arg1 ]; then
-	echo "./strip.sh $1 > stripped_$1"
-	./strip.sh $1 > stripped_$1 
-	echo "./build_dat.sh $1 > trab162/plots/assoc-bl.dat"
-	./build_dat.sh $1 > trab162/plots/assoc-bl.dat
-	rm stripped_$1
+	echo "$ROOT_DIR/strip.sh $1 > stripped_$1"
+	$ROOT_DIR/strip.sh $1 > stripped_$1 
+	echo "$ROOT_DIR/build_dat.sh $1 > trab162/plots/assoc-bl.dat"
+	$ROOT_DIR/build_dat.sh $1 > $ROOT_DIR/trab162/plots/assoc-bl.dat
+#	rm stripped_$1
     arquivo=$1-bl.gp
-    saida=trab162/plots/$arquivo
+    saida=$ROOT_DIR/trab162/plots/$arquivo
 
 cat <<DOC0 > $saida
 #!/usr/bin/gnuplot
@@ -52,7 +54,7 @@ plot "assoc-bl.dat" using 1:2 title "bl8", \
 #
 DOC1
 	echo "( cd trab162/plots ; ./$arquivo > $1 ; $visualizer $1 )"
-	( cd trab162/plots ; chmod 700 $arquivo; ./$arquivo > $1.png ; $visualizer $1.png & )
+	( cd $ROOT_DIR/trab162/plots ; chmod 700 $arquivo; ./$arquivo > $1.png ; $visualizer $1.png & )
 else
     echo "Passe um argumento, e.g. 'area4k'"
 fi
