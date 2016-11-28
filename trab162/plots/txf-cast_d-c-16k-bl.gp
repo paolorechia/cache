@@ -5,7 +5,7 @@ set terminal png
 set xlabel "associativity"
 set logscale x 2 
 set ylabel "Taxa de Faltas"
-set title "Cache 6K (copy-back)"
+set title "cast_d 16k (copy-back)"
 set key reverse Left outside
 set grid
 
