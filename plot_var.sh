@@ -1,5 +1,7 @@
 #/bin/bash
 
+echo $1
+
 ROOT_DIR=~/cache
 
 if [ -z $2 ]; then
@@ -9,14 +11,35 @@ else
 fi
 
 
-len=${#1}
-index=$(($index - 4))
-politica=${1:$index:1}
-index=$(($index + 2))
+# codigo xunxo, poderia ser substituido por um while + array
+sub=$1
+separador=-
+
+indice=$(awk -v a="$sub" -v b="$separador" 'BEGIN{print index(a,b)}')
+sub=${sub:$indice}
+trace_name=$sub
+indice=$(awk -v a="$trace_name" -v b="$separador" 'BEGIN{print index(a,b)}')
+indice=$(($indice - 1))
+trace_name=${trace_name:0:$indice}
+echo $trace_name
+
+indice=$(awk -v a="$sub" -v b="$separador" 'BEGIN{print index(a,b)}')
+sub=${sub:$indice}
+politica=$sub
+indice=$(awk -v a="$politica" -v b="$separador" 'BEGIN{print index(a,b)}')
+indice=$(($indice - 1))
+politica=${politica:0:$indice}
+echo $politica
+
+indice=$(awk -v a="$sub" -v b="$separador" 'BEGIN{print index(a,b)}')
+sub=${sub:$indice}
+capacidade=$sub
+echo $capacidade
+
 if [ $politica = w ]; then
-    titulo="Cache ${1:$index:1}K (write-through)"
+    titulo="$trace_name ${capacidade} (write-through)"
 else
-    titulo="Cache ${1:$index:1}K (copy-back)"
+    titulo="$trace_name ${capacidade} (copy-back)"
 fi    
 echo $politica
 echo $titulo
@@ -26,7 +49,7 @@ if [ -n $arg1 ] && [ -a $arg1 ]; then
 	$ROOT_DIR/strip.sh $1 > stripped_$1 
 	echo "$ROOT_DIR/build_dat.sh $1 > trab162/plots/assoc-bl.dat"
 	$ROOT_DIR/build_dat.sh $1 > $ROOT_DIR/trab162/plots/assoc-bl.dat
-#	rm stripped_$1
+	rm stripped_$1
     arquivo=$1-bl.gp
     saida=$ROOT_DIR/trab162/plots/$arquivo
 
