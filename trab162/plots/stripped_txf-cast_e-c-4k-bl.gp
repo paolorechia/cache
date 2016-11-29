@@ -1,0 +1,13 @@
+#!/usr/bin/gnuplot
+reset
+set terminal png
+
+set xlabel "associativity"
+set logscale x 2 
+set ylabel "Tempo Medio de Acesso (ns)"
+set title "cast_e 4k (copy-back)"
+set key reverse Left outside
+set grid
+
+set style data linespoints
+plot "assoc-bl.dat" using 1:2 title "bl8", "" using 1:3 title "bl16", "" using 1:4 title "bl32", "" using 1:5 title "bl64", "" using 1:6 title "bl128", #
