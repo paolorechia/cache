@@ -33,11 +33,18 @@ while [ $i -lt ${#t[@]} ]; do
 	
 	q[$i]=$(echo "scale=8; 0.25*${t[$i]}+${t[$i]}^2"  | bc -l)
 
-	printf "bl=${blocos[$j]}; txf=${txf[$i]}; q=${q[$i]}; t=${t[$i]}"
+	#printf "bl=${blocos[$j]}; txf=${txf[$i]}; q=0${q[$i]}; t=${t[$i]}"
 
 	tm[$i]=$(echo "scale=8; ${q[$i]}+${txf[$i]}*(60+${blocos[$j]})"  | bc -l)
 
-	printf " ${tm[$i]}\n"
+    numero=${tm[$i]}
+    primeiro_digito=${numero:0:1}
+    if [ $primeiro_digito = "." ]; then
+	    printf " 0${tm[$i]} "
+    else
+    	printf " ${tm[$i]} "
+    fi
+
 
 	i=$(($i + 1))
 	j=$(($j + 1))
