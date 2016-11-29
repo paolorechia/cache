@@ -21,8 +21,8 @@ done
 i=0
 j=0
 k=0
-blocos=(8 16 32 64 128)
-ass=(1 2 4 8)
+blocos=(8 16)
+ass=(2 4)
 
 echo \#\#assc blkSize $1 $2 
 
@@ -33,11 +33,11 @@ while [ $i -lt ${#t[@]} ]; do
 	
 	q[$i]=$(echo "scale=8; 0.25*${t[$i]}+${t[$i]}^2"  | bc -l)
 
-	printf "bl=${blocos[$j]}; txf=${txf[$i]}; q=${q[$i]}; t=${t[$i]}"
+	#printf "bl=${blocos[$j]}; txf=${txf[$i]}; q=${q[$i]}; t=${t[$i]}"
 
 	tm[$i]=$(echo "scale=8; ${q[$i]}+${txf[$i]}*(60+${blocos[$j]})"  | bc -l)
 
-	printf " ${tm[$i]}\n"
+	printf " ${tm[$i]}"
 
 	i=$(($i + 1))
 	j=$(($j + 1))
