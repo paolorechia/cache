@@ -33,7 +33,7 @@ while [ $i -lt ${#t[@]} ]; do
 	
 	q[$i]=$(echo "scale=8; 0.25*${t[$i]}+${t[$i]}^2"  | bc -l)
 
-	#printf "bl=${blocos[$j]}; txf=${txf[$i]}; q=${q[$i]}; t=${t[$i]}"
+	printf "bl=${blocos[$j]}; txf=${txf[$i]}; q=${q[$i]}; t=${t[$i]}\n"
 
 	tm[$i]=$(echo "scale=8; ${q[$i]}+${txf[$i]}*(60+${blocos[$j]})"  | bc -l)
 
