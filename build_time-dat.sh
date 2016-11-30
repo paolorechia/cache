@@ -1,6 +1,6 @@
 #/bin/bash
 
-file_time=stripped_tempo-acesso4k
+file_time=stripped_tempo-acesso4k-s
     
 times=$(cat $file_time | tr '\n' ' ')
 
