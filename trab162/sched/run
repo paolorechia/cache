@@ -6,4 +6,6 @@
 sched -p 'gzip -dc ~/cache/trab161/TRC/rtr.trc.gz' \
       -p'gzip -dc ~/cache/trab161/TRC/zip_d.trc.gz' \
       -p'gzip -dc ~/cache/trab161/TRC/zip_e.trc.gz' \
-      -p'gzip -dc ~/cache/trab161/TRC/jpeg_e.trc.gz' -q64000 -m20000000 -c -f
+      -p'gzip -dc ~/cache/trab161/TRC/cast_e.trc.gz' \
+      -p'gzip -dc ~/cache/trab161/TRC/cast_d.trc.gz' \
+      -p'gzip -dc ~/cache/trab161/TRC/jpeg_e.trc.gz' -q41000 -m20000000 -c -f

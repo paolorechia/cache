@@ -22,7 +22,7 @@ i=0
 j=0
 k=0
 blocos=(8 16)
-ass=(2 4)
+ass=(1 2)
 
 echo \#\#assc blkSize $1 $2 
 

@@ -1,0 +1,9 @@
+cache           x       taxa de faltas      x   tempo médio de acesso (ns)
+ass1tam8                0.0226                  2.0762
+ass1tam16               0.0212                  2.1506
+ass2tam8                0.0163                  1.5898
+ass2tam16               0.0150                  1.6214
+
+1 2.0762 2.1506
+2 1.5898 1.6214
+
